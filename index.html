@@ -7,7 +7,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Estudo+">
-<meta name="description" content="Seu app de controle de estudos para o ENEM">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,77 +16,69 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg0:#0d0f1a;
-  --bg1:#13162a;
-  --bg2:#1c2040;
-  --bg3:#252a50;
-  --acc:#7c6fff;
-  --acc-dim:#4a45b0;
-  --teal:#3de8c8;
-  --rose:#ff6b8a;
-  --amber:#ffca6b;
-  --txt:#dde3ff;
-  --txt2:#7a85b8;
-  --txt3:#3e4870;
-  --border:#232850;
-  --border2:#2e3566;
-  --radius:14px;
-  --radius-sm:8px;
+  --bg0:#0d0f1a;--bg1:#13162a;--bg2:#1c2040;--bg3:#252a50;
+  --acc:#7c6fff;--acc-dim:#4a45b0;--teal:#3de8c8;--rose:#ff6b8a;--amber:#ffca6b;
+  --txt:#dde3ff;--txt2:#7a85b8;--txt3:#3e4870;--border:#232850;--border2:#2e3566;--radius:14px;--radius-sm:8px;
 }
 html,body{height:100%;background:var(--bg0);font-family:'Sora',sans-serif;color:var(--txt);overscroll-behavior:none}
-#app{display:flex;flex-direction:column;height:100%;max-width:480px;margin:0 auto;position:relative}
+#app{display:flex;flex-direction:column;height:100%;max-width:480px;margin:0 auto}
+
+/* LOGIN */
+#loginScreen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px 30px;gap:32px}
+.login-logo{font-size:42px;font-weight:600;letter-spacing:-2px;color:var(--txt)}
+.login-logo em{color:var(--acc);font-style:normal}
+.login-sub{font-size:14px;color:var(--txt2);text-align:center;line-height:1.7}
+.btn-google{display:flex;align-items:center;gap:12px;background:var(--bg1);border:1px solid var(--border2);color:var(--txt);border-radius:var(--radius);padding:14px 24px;font-size:15px;font-family:'Sora',sans-serif;font-weight:500;cursor:pointer;transition:.15s;width:100%;justify-content:center}
+.btn-google:active{opacity:.8;transform:scale(.98)}
+.google-icon{width:20px;height:20px}
+.login-note{font-size:12px;color:var(--txt3);text-align:center;line-height:1.7}
+.sync-badge{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--teal);display:flex;align-items:center;gap:6px}
 
 /* HEADER */
-.header{padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:var(--bg0);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border)}
-.logo{font-size:18px;font-weight:600;color:var(--txt);letter-spacing:-0.5px}
+.header{padding:14px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:var(--bg0);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.logo{font-size:17px;font-weight:600;color:var(--txt);letter-spacing:-0.5px}
 .logo em{color:var(--acc);font-style:normal}
-.header-date{font-size:11px;color:var(--txt3);font-family:'DM Mono',monospace}
+.header-right{display:flex;align-items:center;gap:10px}
+.sync-indicator{font-size:11px;color:var(--txt3);display:flex;align-items:center;gap:4px}
+.sync-dot{width:6px;height:6px;border-radius:50%;background:var(--txt3)}
+.sync-dot.synced{background:var(--teal)}
+.sync-dot.syncing{background:var(--amber);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.avatar{width:28px;height:28px;border-radius:50%;border:1px solid var(--border2);cursor:pointer;object-fit:cover}
+.avatar-placeholder{width:28px;height:28px;border-radius:50%;background:var(--acc-dim);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;cursor:pointer;flex-shrink:0}
 
-/* SCROLL AREA */
-.scroll-area{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:100px}
-
-/* BOTTOM NAV */
+.scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:100px}
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--bg1);border-top:1px solid var(--border);display:flex;z-index:20;padding-bottom:env(safe-area-inset-bottom)}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 0;background:none;border:none;color:var(--txt3);font-size:10px;font-family:'Sora',sans-serif;cursor:pointer;transition:.2s;letter-spacing:.3px}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:11px 0;background:none;border:none;color:var(--txt3);font-size:10px;font-family:'Sora',sans-serif;cursor:pointer;transition:.2s;letter-spacing:.3px}
 .nav-btn.active{color:var(--acc)}
-.nav-icon{font-size:20px;line-height:1}
-
-/* PAGE */
+.nav-icon{font-size:18px;line-height:1}
 .page{display:none;padding:20px}
 .page.active{display:block}
-
-/* SECTION TITLE */
 .section-title{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;font-weight:500}
 
-/* TIMER PAGE */
-.timer-hero{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;display:flex;flex-direction:column;align-items:center;gap:16px;margin-bottom:16px;position:relative;overflow:hidden}
-.timer-hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(124,111,255,.08) 0%,transparent 70%);pointer-events:none}
+/* TIMER */
+.timer-hero{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:16px}
 .timer-subject-label{font-size:13px;color:var(--txt2);min-height:20px;text-align:center}
 .timer-subject-label span{color:var(--acc);font-weight:500}
-.timer-display{font-family:'DM Mono',monospace;font-size:52px;font-weight:500;color:var(--txt);letter-spacing:-2px;line-height:1}
+.timer-display{font-family:'DM Mono',monospace;font-size:50px;font-weight:500;color:var(--txt);letter-spacing:-2px;line-height:1}
 .timer-display.running{color:var(--acc)}
 .timer-btns{display:flex;gap:10px;width:100%}
 .btn{border:none;border-radius:var(--radius-sm);padding:12px 20px;font-size:14px;font-family:'Sora',sans-serif;cursor:pointer;transition:.15s;font-weight:500;flex:1}
 .btn-primary{background:var(--acc);color:#fff}
 .btn-primary:active{opacity:.8;transform:scale(.98)}
 .btn-secondary{background:var(--bg3);color:var(--txt);border:1px solid var(--border2)}
-.btn-secondary:active{opacity:.8;transform:scale(.98)}
+.btn-secondary:active{opacity:.8}
 .btn-save{background:var(--teal);color:#0d0f1a;width:100%}
-.btn-save:active{opacity:.8;transform:scale(.98)}
-.btn-save:disabled{opacity:.4;cursor:not-allowed}
-
+.btn-save:active{opacity:.8}
 .note-area{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--txt);border-radius:var(--radius-sm);padding:10px 12px;font-size:13px;font-family:'Sora',sans-serif;outline:none;resize:none;line-height:1.5}
 .note-area:focus{border-color:var(--acc-dim)}
 .note-area::placeholder{color:var(--txt3)}
-
 .today-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 .today-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
-.today-val{font-size:26px;font-weight:600;color:var(--txt);font-family:'DM Mono',monospace;line-height:1}
+.today-val{font-size:24px;font-weight:600;color:var(--txt);font-family:'DM Mono',monospace;line-height:1}
 .today-lbl{font-size:11px;color:var(--txt3);margin-top:4px;text-transform:uppercase;letter-spacing:.6px}
-
-/* SUBJECTS LIST */
 .subjects-block{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
-.subj-item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:.15s;user-select:none}
+.subj-item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:.15s}
 .subj-item:last-child{border-bottom:none}
 .subj-item:active,.subj-item.selected{background:var(--bg3)}
 .subj-item.selected{border-left:3px solid var(--acc)}
@@ -101,7 +92,7 @@ html,body{height:100%;background:var(--bg0);font-family:'Sora',sans-serif;color:
 .btn-icon{background:var(--acc);color:#fff;border:none;border-radius:var(--radius-sm);width:40px;height:40px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.15s}
 .btn-icon:active{opacity:.8;transform:scale(.95)}
 
-/* HISTORY PAGE */
+/* HISTORY */
 .filter-row{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
 .filter-btn{background:var(--bg2);border:1px solid var(--border);color:var(--txt2);border-radius:20px;padding:6px 14px;font-size:12px;font-family:'Sora',sans-serif;cursor:pointer;white-space:nowrap;transition:.15s}
 .filter-btn.active{background:var(--acc);border-color:var(--acc);color:#fff}
@@ -118,69 +109,102 @@ html,body{height:100%;background:var(--bg0);font-family:'Sora',sans-serif;color:
 .empty-state{text-align:center;padding:60px 20px;color:var(--txt3);font-size:14px;line-height:1.8}
 .empty-icon{font-size:40px;margin-bottom:12px}
 
-/* METRICS PAGE */
+/* METRICS */
 .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
 .metric-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
-.metric-card.wide{grid-column:1/-1}
-.metric-val{font-size:30px;font-weight:600;color:var(--txt);font-family:'DM Mono',monospace;line-height:1}
+.metric-val{font-size:28px;font-weight:600;color:var(--txt);font-family:'DM Mono',monospace;line-height:1}
 .metric-lbl{font-size:11px;color:var(--txt3);margin-top:5px;text-transform:uppercase;letter-spacing:.6px}
 .metric-accent{color:var(--acc)}
 .chart-block{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px}
-.chart-title{font-size:11px;color:var(--txt3);margin-bottom:16px;text-transform:uppercase;letter-spacing:.8px;font-weight:500}
-
-/* WEEK CHART */
+.chart-title{font-size:11px;color:var(--txt3);margin-bottom:16px;text-transform:uppercase;letter-spacing:.8px}
 .week-chart{display:flex;align-items:flex-end;gap:6px;height:100px}
 .day-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
 .day-bar-wrap{flex:1;width:100%;display:flex;align-items:flex-end}
 .day-bar{width:100%;border-radius:4px 4px 0 0;min-height:3px;transition:.6s cubic-bezier(.34,1.56,.64,1)}
 .day-lbl{font-size:10px;color:var(--txt3);font-family:'DM Mono',monospace}
 .day-lbl.today{color:var(--acc)}
-
-/* SUBJECT BARS */
 .bar-chart{display:flex;flex-direction:column;gap:12px}
 .bar-row{display:flex;flex-direction:column;gap:5px}
-.bar-header{display:flex;justify-content:space-between;align-items:center}
+.bar-header{display:flex;justify-content:space-between}
 .bar-name{font-size:13px;color:var(--txt2)}
 .bar-val{font-size:12px;color:var(--txt3);font-family:'DM Mono',monospace}
 .bar-track{background:var(--bg3);border-radius:4px;height:6px;overflow:hidden}
 .bar-fill{height:100%;border-radius:4px;transition:.8s cubic-bezier(.34,1.56,.64,1)}
 
-/* BACKUP PAGE */
+/* BACKUP/CONTA */
 .backup-block{background:var(--bg1);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px}
 .backup-title{font-size:15px;font-weight:500;color:var(--txt);margin-bottom:6px}
 .backup-desc{font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:16px}
-.btn-full{width:100%;padding:13px;border-radius:var(--radius-sm);font-size:14px;font-family:'Sora',sans-serif;font-weight:500;cursor:pointer;border:none;transition:.15s}
+.btn-full{width:100%;padding:13px;border-radius:var(--radius-sm);font-size:14px;font-family:'Sora',sans-serif;font-weight:500;cursor:pointer;border:none;transition:.15s;margin-bottom:8px}
 .btn-export{background:var(--acc);color:#fff}
-.btn-export:active{opacity:.8}
-.btn-import{background:var(--bg3);color:var(--txt);border:1px solid var(--border2);margin-top:10px}
-.btn-import:active{opacity:.8}
-.backup-info{font-size:12px;color:var(--txt3);text-align:center;margin-top:12px;line-height:1.6}
-.stats-summary{background:var(--bg2);border-radius:var(--radius-sm);padding:14px;display:flex;gap:0}
+.btn-import{background:var(--bg3);color:var(--txt);border:1px solid var(--border2)}
+.btn-logout{background:transparent;color:var(--rose);border:1px solid var(--rose)}
+.btn-logout:active{opacity:.7}
+.stats-summary{background:var(--bg2);border-radius:var(--radius-sm);padding:14px;display:flex}
 .stat-item{flex:1;text-align:center;border-right:1px solid var(--border)}
 .stat-item:last-child{border-right:none}
 .stat-val{font-size:20px;font-weight:600;color:var(--txt);font-family:'DM Mono',monospace}
 .stat-lbl{font-size:11px;color:var(--txt3);margin-top:3px}
+.user-card{display:flex;align-items:center;gap:12px;background:var(--bg2);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px}
+.user-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.user-avatar-ph{width:40px;height:40px;border-radius:50%;background:var(--acc-dim);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;color:#fff;flex-shrink:0}
+.user-name{font-size:14px;font-weight:500;color:var(--txt)}
+.user-email{font-size:12px;color:var(--txt3);margin-top:2px}
 
 /* TOAST */
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg3);border:1px solid var(--border2);color:var(--txt);padding:10px 20px;border-radius:20px;font-size:13px;opacity:0;transition:.3s;z-index:100;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* LOADING */
+#loadingScreen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px}
+.spinner{width:32px;height:32px;border:3px solid var(--border2);border-top-color:var(--acc);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-txt{font-size:13px;color:var(--txt3)}
 </style>
 </head>
 <body>
-<div id="app">
+
+<!-- LOADING -->
+<div id="loadingScreen">
+  <div class="spinner"></div>
+  <div class="loading-txt">Carregando...</div>
+</div>
+
+<!-- LOGIN -->
+<div id="loginScreen" style="display:none">
+  <div>
+    <div class="login-logo">estudo<em>+</em></div>
+  </div>
+  <div class="sync-badge">
+    <span>☁</span> Sincronização em nuvem ativa
+  </div>
+  <div class="login-sub">Faça login para sincronizar seus dados<br>entre celular e computador automaticamente.</div>
+  <button class="btn-google" onclick="loginGoogle()">
+    <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+    Entrar com Google
+  </button>
+  <div class="login-note">Seus dados ficam salvos na sua conta Google.<br>Funciona offline e sincroniza quando conectar.</div>
+</div>
+
+<!-- APP -->
+<div id="appScreen" style="display:none;flex-direction:column;height:100%">
   <div class="header">
     <div class="logo">estudo<em>+</em></div>
-    <div class="header-date" id="headerDate"></div>
+    <div class="header-right">
+      <div class="sync-indicator">
+        <div class="sync-dot" id="syncDot"></div>
+        <span id="syncLabel" style="font-size:11px;color:var(--txt3)"></span>
+      </div>
+      <div class="avatar-placeholder" id="userAvatar" onclick="showPage('conta',document.getElementById('nav-conta'))"></div>
+    </div>
   </div>
 
   <div class="scroll-area">
-    <!-- TIMER PAGE -->
     <div id="page-timer" class="page active">
       <div class="today-row">
         <div class="today-card"><div class="today-val" id="todayTotal">0min</div><div class="today-lbl">hoje</div></div>
         <div class="today-card"><div class="today-val" id="todaySessions">0</div><div class="today-lbl">sessões</div></div>
       </div>
-
       <div class="timer-hero">
         <div class="timer-subject-label" id="timerSubjectLabel">Selecione uma matéria abaixo</div>
         <div class="timer-display" id="timerDisplay">00:00:00</div>
@@ -189,9 +213,8 @@ html,body{height:100%;background:var(--bg0);font-family:'Sora',sans-serif;color:
           <button class="btn btn-secondary" onclick="resetTimer()">Resetar</button>
         </div>
         <textarea class="note-area" id="noteInput" rows="2" placeholder="Anotação da sessão (opcional)..."></textarea>
-        <button class="btn btn-save" id="btnSave" onclick="saveSession()">Salvar sessão</button>
+        <button class="btn btn-save" onclick="saveSession()">Salvar sessão</button>
       </div>
-
       <div class="section-title">Matérias</div>
       <div class="subjects-block">
         <div id="subjectList"></div>
@@ -202,17 +225,15 @@ html,body{height:100%;background:var(--bg0);font-family:'Sora',sans-serif;color:
       </div>
     </div>
 
-    <!-- HISTORY PAGE -->
     <div id="page-history" class="page">
       <div class="filter-row" id="filterRow"></div>
       <div class="hist-list" id="histList"></div>
     </div>
 
-    <!-- METRICS PAGE -->
     <div id="page-metrics" class="page">
       <div class="metrics-grid">
-        <div class="metric-card"><div class="metric-val metric-accent" id="mWeek">0h</div><div class="metric-lbl">esta semana</div></div>
-        <div class="metric-card"><div class="metric-val" id="mTotal">0h</div><div class="metric-lbl">tempo total</div></div>
+        <div class="metric-card"><div class="metric-val metric-accent" id="mWeek">0min</div><div class="metric-lbl">esta semana</div></div>
+        <div class="metric-card"><div class="metric-val" id="mTotal">0min</div><div class="metric-lbl">tempo total</div></div>
         <div class="metric-card"><div class="metric-val" id="mSessions">0</div><div class="metric-lbl">sessões</div></div>
         <div class="metric-card"><div class="metric-val" id="mStreak">0</div><div class="metric-lbl">dias seguidos</div></div>
       </div>
@@ -226,63 +247,73 @@ html,body{height:100%;background:var(--bg0);font-family:'Sora',sans-serif;color:
       </div>
     </div>
 
-    <!-- BACKUP PAGE -->
-    <div id="page-backup" class="page">
-      <div class="section-title">Resumo dos dados</div>
+    <div id="page-conta" class="page">
+      <div class="section-title">Conta</div>
+      <div class="backup-block">
+        <div id="userCard"></div>
+        <button class="btn-full btn-logout" onclick="logoutUser()">Sair da conta</button>
+      </div>
+
+      <div class="section-title">Resumo</div>
       <div class="backup-block">
         <div class="stats-summary" id="backupStats"></div>
       </div>
 
-      <div class="section-title">Exportar backup</div>
+      <div class="section-title">Backup local</div>
       <div class="backup-block">
-        <div class="backup-title">Salvar dados</div>
-        <div class="backup-desc">Exporta todas as suas sessões, matérias e histórico em um arquivo JSON. Guarde em qualquer lugar — Google Drive, WhatsApp, etc.</div>
+        <div class="backup-title">Exportar dados</div>
+        <div class="backup-desc">Salva todos os seus dados em um arquivo JSON como backup extra além da nuvem.</div>
         <button class="btn-full btn-export" onclick="exportData()">Exportar backup (.json)</button>
-        <div class="backup-info">O arquivo contém todos os seus dados e pode ser restaurado a qualquer momento.</div>
-      </div>
-
-      <div class="section-title">Importar backup</div>
-      <div class="backup-block">
-        <div class="backup-title">Restaurar dados</div>
-        <div class="backup-desc">Selecione um arquivo de backup exportado anteriormente. Os dados atuais serão substituídos.</div>
         <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
         <button class="btn-full btn-import" onclick="document.getElementById('importFile').click()">Importar backup (.json)</button>
-        <div class="backup-info">Atenção: importar substitui os dados atuais. Faça um export antes se quiser manter os dados.</div>
       </div>
     </div>
   </div>
 
   <nav class="bottom-nav">
-    <button class="nav-btn active" onclick="showPage('timer',this)" id="nav-timer">
-      <span class="nav-icon">⏱</span>Timer
-    </button>
-    <button class="nav-btn" onclick="showPage('history',this)" id="nav-history">
-      <span class="nav-icon">📋</span>Histórico
-    </button>
-    <button class="nav-btn" onclick="showPage('metrics',this)" id="nav-metrics">
-      <span class="nav-icon">📊</span>Métricas
-    </button>
-    <button class="nav-btn" onclick="showPage('backup',this)" id="nav-backup">
-      <span class="nav-icon">💾</span>Backup
-    </button>
+    <button class="nav-btn active" onclick="showPage('timer',this)" id="nav-timer"><span class="nav-icon">⏱</span>Timer</button>
+    <button class="nav-btn" onclick="showPage('history',this)" id="nav-history"><span class="nav-icon">📋</span>Histórico</button>
+    <button class="nav-btn" onclick="showPage('metrics',this)" id="nav-metrics"><span class="nav-icon">📊</span>Métricas</button>
+    <button class="nav-btn" onclick="showPage('conta',this)" id="nav-conta"><span class="nav-icon">👤</span>Conta</button>
   </nav>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script>
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, deleteDoc, onSnapshot, query, orderBy } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCGWFzTo9G_xQNUKrsr8nSeiL99TCcrIQU",
+  authDomain: "estudo-plus.firebaseapp.com",
+  projectId: "estudo-plus",
+  storageBucket: "estudo-plus.firebasestorage.app",
+  messagingSenderId: "616500476776",
+  appId: "1:616500476776:web:dfb6440bcb94469e25f4dd"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
 const COLORS=['#7c6fff','#3de8c8','#ff6b8a','#ffca6b','#a29bfe','#00cec9','#fd79a8','#fdcb6e','#74b9ff','#55efc4'];
 const DEFAULT_SUBJECTS=['Matemática','Língua Portuguesa','Ciências da Natureza','Ciências Humanas','Redação','Linguagens'];
 
-let subjects=JSON.parse(localStorage.getItem('ep_subjects')||'null')||DEFAULT_SUBJECTS.map((n,i)=>({id:Date.now()+i,name:n,color:COLORS[i%COLORS.length]}));
-let sessions=JSON.parse(localStorage.getItem('ep_sessions')||'[]');
-let selectedSubject=null;
-let timerInterval=null;
-let timerRunning=false;
-let timerSeconds=0;
-let activeFilter='all';
+let currentUser = null;
+let subjects = [];
+let sessions = [];
+let selectedSubject = null;
+let timerInterval = null;
+let timerRunning = false;
+let timerSeconds = 0;
+let activeFilter = 'all';
+let unsubSessions = null;
+let unsubSubjects = null;
 
-function persist(){localStorage.setItem('ep_subjects',JSON.stringify(subjects));localStorage.setItem('ep_sessions',JSON.stringify(sessions))}
 function pad(n){return String(n).padStart(2,'0')}
 function fmtTimer(s){return pad(Math.floor(s/3600))+':'+pad(Math.floor((s%3600)/60))+':'+pad(s%60)}
 function fmtDuration(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return h>0?h+'h'+(m>0?' '+m+'min':''):m>0?m+'min':'<1min'}
@@ -299,8 +330,7 @@ function calcStreak(){
   for(const d of days){
     const dd=new Date(d);
     const diff=Math.round((cur-dd)/(1000*60*60*24));
-    if(diff===0||diff===1){streak++;cur=dd;}
-    else break;
+    if(diff===0||diff===1){streak++;cur=dd;}else break;
   }
   return streak;
 }
@@ -308,13 +338,110 @@ function calcStreak(){
 function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-function updateHeaderDate(){
-  const d=new Date();
-  const opts={weekday:'short',day:'numeric',month:'short'};
-  document.getElementById('headerDate').textContent=d.toLocaleDateString('pt-BR',opts);
+function setSyncStatus(status){
+  const dot=document.getElementById('syncDot');
+  const lbl=document.getElementById('syncLabel');
+  if(status==='synced'){dot.className='sync-dot synced';lbl.textContent='sincronizado';}
+  else if(status==='syncing'){dot.className='sync-dot syncing';lbl.textContent='salvando...';}
+  else{dot.className='sync-dot';lbl.textContent='offline';}
+}
+
+window.loginGoogle = async function(){
+  try{
+    await signInWithPopup(auth, provider);
+  }catch(e){
+    if(e.code!=='auth/popup-closed-by-user') showToast('Erro ao entrar. Tente novamente.');
+  }
+}
+
+window.logoutUser = async function(){
+  if(confirm('Sair da conta?')){
+    if(unsubSessions) unsubSessions();
+    if(unsubSubjects) unsubSubjects();
+    await signOut(auth);
+  }
+}
+
+onAuthStateChanged(auth, async (user) => {
+  document.getElementById('loadingScreen').style.display='none';
+  if(user){
+    currentUser = user;
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('appScreen').style.display='flex';
+    const av=document.getElementById('userAvatar');
+    if(user.photoURL){
+      av.innerHTML=`<img src="${user.photoURL}" class="avatar" onclick="showPage('conta',document.getElementById('nav-conta'))">`;
+      av.style.background='none';
+    } else {
+      av.textContent=user.displayName?user.displayName[0].toUpperCase():'U';
+    }
+    await initUserData(user.uid);
+    listenData(user.uid);
+  } else {
+    currentUser = null;
+    subjects=[];sessions=[];
+    document.getElementById('loginScreen').style.display='flex';
+    document.getElementById('appScreen').style.display='none';
+  }
+});
+
+async function initUserData(uid){
+  const subjRef = doc(db,'users',uid,'data','subjects');
+  const snap = await getDoc(subjRef);
+  if(!snap.exists()){
+    const defaultSubjs = DEFAULT_SUBJECTS.map((n,i)=>({id:Date.now()+i,name:n,color:COLORS[i%COLORS.length]}));
+    await setDoc(subjRef,{list:defaultSubjs});
+  }
+}
+
+function listenData(uid){
+  const subjRef = doc(db,'users',uid,'data','subjects');
+  unsubSubjects = onSnapshot(subjRef, (snap)=>{
+    if(snap.exists()){
+      subjects = snap.data().list || [];
+      renderSubjects();
+      updateTodaySummary();
+    }
+  });
+
+  const sessRef = collection(db,'users',uid,'sessions');
+  const q = query(sessRef, orderBy('timestamp','desc'));
+  unsubSessions = onSnapshot(q, (snap)=>{
+    sessions = snap.docs.map(d=>({...d.data(), _docId:d.id}));
+    renderSubjects();
+    updateTodaySummary();
+    setSyncStatus('synced');
+  });
+}
+
+async function saveSubjects(){
+  if(!currentUser) return;
+  setSyncStatus('syncing');
+  try{
+    await setDoc(doc(db,'users',currentUser.uid,'data','subjects'),{list:subjects});
+    setSyncStatus('synced');
+  }catch{setSyncStatus('offline');}
+}
+
+window.addSubject = async function(){
+  const inp=document.getElementById('newSubjInput');
+  const name=inp.value.trim();
+  if(!name)return;
+  if(subjects.find(s=>s.name.toLowerCase()===name.toLowerCase())){showToast('Matéria já existe!');return}
+  subjects.push({id:Date.now(),name,color:COLORS[subjects.length%COLORS.length]});
+  inp.value='';
+  await saveSubjects();
+  showToast('Matéria adicionada!');
+}
+
+window.selectSubject = function(id){
+  selectedSubject=subjects.find(s=>s.id===id)||null;
+  renderSubjects();
+  const lbl=document.getElementById('timerSubjectLabel');
+  lbl.innerHTML=selectedSubject?`<span>${selectedSubject.name}</span>`:'Selecione uma matéria abaixo';
 }
 
 function renderSubjects(){
@@ -329,23 +456,7 @@ function renderSubjects(){
   }).join('');
 }
 
-function selectSubject(id){
-  selectedSubject=subjects.find(s=>s.id===id)||null;
-  renderSubjects();
-  const lbl=document.getElementById('timerSubjectLabel');
-  lbl.innerHTML=selectedSubject?`<span>${selectedSubject.name}</span>`:'Selecione uma matéria abaixo';
-}
-
-function addSubject(){
-  const inp=document.getElementById('newSubjInput');
-  const name=inp.value.trim();
-  if(!name)return;
-  if(subjects.find(s=>s.name.toLowerCase()===name.toLowerCase())){showToast('Matéria já existe!');return}
-  subjects.push({id:Date.now(),name,color:COLORS[subjects.length%COLORS.length]});
-  persist();inp.value='';renderSubjects();showToast('Matéria adicionada!');
-}
-
-function toggleTimer(){
+window.toggleTimer = function(){
   if(!selectedSubject){showToast('Selecione uma matéria primeiro!');return}
   if(timerRunning){
     clearInterval(timerInterval);timerRunning=false;
@@ -362,33 +473,38 @@ function toggleTimer(){
   }
 }
 
-function resetTimer(){
+window.resetTimer = function(){
   clearInterval(timerInterval);timerRunning=false;timerSeconds=0;
   document.getElementById('timerDisplay').textContent='00:00:00';
   document.getElementById('timerDisplay').classList.remove('running');
   document.getElementById('btnStartStop').textContent='Iniciar';
 }
 
-function saveSession(){
+window.saveSession = async function(){
   if(!selectedSubject){showToast('Selecione uma matéria!');return}
   if(timerSeconds<5){showToast('Inicie o timer antes de salvar.');return}
+  if(!currentUser){showToast('Faça login para salvar.');return}
   clearInterval(timerInterval);timerRunning=false;
   const note=document.getElementById('noteInput').value.trim();
-  sessions.unshift({
-    id:Date.now(),
+  const session={
     subjectId:selectedSubject.id,
     subjectName:selectedSubject.name,
     subjectColor:selectedSubject.color,
     duration:timerSeconds,
     note,
     timestamp:Date.now()
-  });
-  persist();
+  };
+  setSyncStatus('syncing');
+  try{
+    await addDoc(collection(db,'users',currentUser.uid,'sessions'),session);
+    setSyncStatus('synced');
+    showToast('Sessão salva!');
+  }catch{
+    setSyncStatus('offline');
+    showToast('Erro ao salvar. Verifique a conexão.');
+  }
   resetTimer();
   document.getElementById('noteInput').value='';
-  updateTodaySummary();
-  renderSubjects();
-  showToast('Sessão salva!');
 }
 
 function updateTodaySummary(){
@@ -399,15 +515,26 @@ function updateTodaySummary(){
   document.getElementById('todaySessions').textContent=todayS.length;
 }
 
+window.setFilter = function(id){activeFilter=id;renderHistory()}
+
+window.deleteSession = async function(docId){
+  if(!currentUser)return;
+  setSyncStatus('syncing');
+  try{
+    await deleteDoc(doc(db,'users',currentUser.uid,'sessions',docId));
+    setSyncStatus('synced');
+    showToast('Sessão removida.');
+  }catch{setSyncStatus('offline');showToast('Erro ao remover.');}
+}
+
 function renderHistory(){
   const filterEl=document.getElementById('filterRow');
   const filters=[{id:'all',label:'Todas'},...subjects.map(s=>({id:String(s.id),label:s.name}))];
   filterEl.innerHTML=filters.map(f=>`<button class="filter-btn${activeFilter===f.id?' active':''}" onclick="setFilter('${f.id}')">${f.label}</button>`).join('');
-
   const filtered=activeFilter==='all'?sessions:sessions.filter(s=>String(s.subjectId)===activeFilter);
   const el=document.getElementById('histList');
   if(!filtered.length){
-    el.innerHTML=`<div class="empty-state"><div class="empty-icon">📚</div>Nenhuma sessão encontrada.<br>Inicie o timer para registrar seu estudo!</div>`;
+    el.innerHTML=`<div class="empty-state"><div class="empty-icon">📚</div>Nenhuma sessão encontrada.<br>Inicie o timer para registrar!</div>`;
     return;
   }
   el.innerHTML=filtered.map(s=>{
@@ -419,17 +546,9 @@ function renderHistory(){
         <div class="hist-meta">${dateStr}${s.note?' · '+s.note:''}</div>
       </div>
       <div class="hist-dur">${fmtTimer(s.duration)}</div>
-      <button class="hist-del" onclick="deleteSession(${s.id})">×</button>
+      <button class="hist-del" onclick="deleteSession('${s._docId}')">×</button>
     </div>`;
   }).join('');
-}
-
-function setFilter(id){activeFilter=id;renderHistory()}
-
-function deleteSession(id){
-  sessions=sessions.filter(s=>s.id!==id);persist();
-  renderHistory();renderMetrics();updateTodaySummary();renderSubjects();
-  showToast('Sessão removida.');
 }
 
 function renderMetrics(){
@@ -440,7 +559,6 @@ function renderMetrics(){
   document.getElementById('mTotal').textContent=fmtDuration(allTotal)||'0min';
   document.getElementById('mSessions').textContent=sessions.length;
   document.getElementById('mStreak').textContent=calcStreak();
-
   const mon=getMonday();
   const days=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];
   const todayDow=(new Date().getDay()||7)-1;
@@ -449,13 +567,11 @@ function renderMetrics(){
     return sessions.filter(s=>dateKey(s.timestamp)===dateKey(day)).reduce((a,x)=>a+x.duration,0);
   });
   const maxDay=Math.max(...dayTotals,1);
-  const wc=document.getElementById('weekChart');
-  wc.innerHTML=dayTotals.map((t,i)=>`
+  document.getElementById('weekChart').innerHTML=dayTotals.map((t,i)=>`
     <div class="day-col">
       <div class="day-bar-wrap"><div class="day-bar" style="height:${Math.max(3,Math.round((t/maxDay)*90))}px;background:${i===todayDow?'#7c6fff':t>0?'#2e3566':'#1c2040'}"></div></div>
       <div class="day-lbl${i===todayDow?' today':''}">${days[i]}</div>
     </div>`).join('');
-
   const subjTotals={};
   sessions.forEach(s=>{
     if(!subjTotals[s.subjectId])subjTotals[s.subjectId]={name:s.subjectName,color:s.subjectColor,total:0};
@@ -472,16 +588,20 @@ function renderMetrics(){
     </div>`).join('');
 }
 
-function renderBackup(){
+function renderConta(){
+  if(!currentUser)return;
   const total=sessions.reduce((a,x)=>a+x.duration,0);
   document.getElementById('backupStats').innerHTML=`
     <div class="stat-item"><div class="stat-val">${sessions.length}</div><div class="stat-lbl">sessões</div></div>
     <div class="stat-item"><div class="stat-val">${subjects.length}</div><div class="stat-lbl">matérias</div></div>
     <div class="stat-item"><div class="stat-val">${fmtDuration(total)}</div><div class="stat-lbl">total</div></div>`;
+  const ph = currentUser.photoURL?`<img src="${currentUser.photoURL}" class="user-avatar">`:`<div class="user-avatar-ph">${currentUser.displayName?currentUser.displayName[0].toUpperCase():'U'}</div>`;
+  document.getElementById('userCard').innerHTML=`
+    <div class="user-card">${ph}<div><div class="user-name">${currentUser.displayName||'Usuário'}</div><div class="user-email">${currentUser.email}</div></div></div>`;
 }
 
-function exportData(){
-  const data={version:'1.0',exportedAt:new Date().toISOString(),subjects,sessions};
+window.exportData = function(){
+  const data={version:'2.0',exportedAt:new Date().toISOString(),subjects,sessions};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
@@ -490,17 +610,23 @@ function exportData(){
   showToast('Backup exportado!');
 }
 
-function importData(input){
-  const file=input.files[0];if(!file)return;
+window.importData = async function(input){
+  const file=input.files[0];if(!file||!currentUser)return;
   const reader=new FileReader();
-  reader.onload=e=>{
+  reader.onload=async e=>{
     try{
       const data=JSON.parse(e.target.result);
-      if(!data.subjects||!data.sessions)throw new Error('Formato inválido');
-      if(confirm('Isso vai substituir seus dados atuais. Continuar?')){
-        subjects=data.subjects;sessions=data.sessions;persist();
-        renderSubjects();updateTodaySummary();renderBackup();
-        showToast('Backup restaurado!');
+      if(!data.subjects||!data.sessions)throw new Error('inválido');
+      if(confirm('Isso vai importar '+data.sessions.length+' sessões. Continuar?')){
+        setSyncStatus('syncing');
+        subjects=data.subjects;
+        await saveSubjects();
+        for(const s of data.sessions){
+          const {_docId,...clean}=s;
+          await addDoc(collection(db,'users',currentUser.uid,'sessions'),clean);
+        }
+        setSyncStatus('synced');
+        showToast('Backup importado!');
       }
     }catch{showToast('Arquivo inválido.');}
     input.value='';
@@ -508,22 +634,16 @@ function importData(input){
   reader.readAsText(file);
 }
 
-function showPage(name,btn){
+window.showPage = function(name, btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
-  btn.classList.add('active');
+  if(btn) btn.classList.add('active');
   if(name==='history')renderHistory();
   if(name==='metrics')renderMetrics();
-  if(name==='backup')renderBackup();
+  if(name==='conta')renderConta();
 }
 
-// INIT
-updateHeaderDate();
-renderSubjects();
-updateTodaySummary();
-
-// SERVICE WORKER
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
